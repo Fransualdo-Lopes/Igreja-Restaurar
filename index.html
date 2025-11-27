@@ -30,7 +30,22 @@
     <style>
         html { scroll-behavior: smooth; }
     </style>
-  <script type="importmap">
+    <!-- Polyfill to support process.env in Vite environment -->
+    <script>
+      // Define process.env immediately to prevent crashes in client-side code
+      window.process = { env: { API_KEY: '' } };
+    </script>
+    <script type="module">
+      try {
+        // Bridge VITE_API_KEY to process.env.API_KEY for compatibility
+        if (import.meta.env && import.meta.env.VITE_API_KEY) {
+          window.process.env.API_KEY = import.meta.env.VITE_API_KEY;
+        }
+      } catch (e) {
+        console.log("Running in development or environment variables not loaded via Vite");
+      }
+    </script>
+<script type="importmap">
 {
   "imports": {
     "react": "https://aistudiocdn.com/react@^19.2.0",

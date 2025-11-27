@@ -29,7 +29,7 @@ export const MinistriesSection: React.FC = () => {
       id: 'intercession',
       title: 'Intercessão',
       description: 'Um ministério dedicado a clamar pelas vidas, sustentando a igreja em oração.',
-      imageUrl: 'https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=2670&auto=format&fit=crop',
+      imageUrl: 'https://images.unsplash.com/photo-1507692049790-de58293a4697?q=80&w=2670&auto=format&fit=crop',
       icon: <Flame size={24} />
     }
   ];
