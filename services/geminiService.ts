@@ -1,7 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 const SYSTEM_INSTRUCTION = `
 Você é um assistente virtual empático e acolhedor da 'Igreja Restaurar'. 
 O tom de voz deve ser gentil, esperançoso e baseado em princípios cristãos, mas sem ser excessivamente religioso ou julgador.
@@ -19,6 +17,11 @@ Horários de Culto (use como base):
 
 export const sendMessageToGemini = async (message: string): Promise<string> => {
   try {
+    // Initialize inside the function to prevent app crash (white screen) on load
+    // if the API Key is missing or invalid in the environment variables.
+    const apiKey = process.env.API_KEY || '';
+    const ai = new GoogleGenAI({ apiKey: apiKey });
+    
     const model = 'gemini-2.5-flash';
     
     const response = await ai.models.generateContent({
