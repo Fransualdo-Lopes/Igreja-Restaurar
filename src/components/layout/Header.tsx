@@ -71,8 +71,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
   ];
 
   // Logos reais da pasta public
-  const logoDark = "/logo-dark.png"; 
-  const logoLight = "/logo-light.png";
+  const logoDark = "/1.svg"; 
+  const logoLight = "/2.svg";
 
   // Determine which logo to show based on scroll and theme
   const showDarkLogo = isScrolled && theme !== 'dark';

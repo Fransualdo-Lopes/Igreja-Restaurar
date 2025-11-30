@@ -8,7 +8,7 @@ const featuredEvents: Event[] = [
     id: '1',
     title: 'Grande Culto',
     date: 'Domingo',
-    time: '18:00',
+    time: '19:00',
     location: 'Templo Principal',
     category: 'Worship'
   },
@@ -57,7 +57,7 @@ const featuredEvents: Event[] = [
 // Lista completa para o Modal de Agenda Semanal
 const weeklySchedule = [
   { day: 'Domingo', time: '10:00', event: 'Escola Bíblica & Culto Kids' },
-  { day: 'Domingo', time: '18:00', event: 'Grande Culto da Família' },
+  { day: 'Domingo', time: '19:00', event: 'Grande Culto da Família' },
   { day: 'Terça-feira', time: '19:30', event: 'Células (Nos lares)' },
   { day: 'Quarta-feira', time: '19:30', event: 'Culto de Ensino' },
   { day: 'Quinta-feira', time: '19:30', event: 'Oração de Mulheres' },

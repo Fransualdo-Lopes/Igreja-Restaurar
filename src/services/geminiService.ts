@@ -10,7 +10,7 @@ Seu objetivo é:
 4. Nunca invente eventos específicos que não foram fornecidos. Se não souber, peça para entrarem em contato pelo Instagram oficial: https://www.instagram.com/ig_restaurar/
 
 Horários de Culto (use como base):
-- Domingos: 10h e 18h
+- Domingos: 10h e 19h
 - Quartas: 20h (Culto de Oração)
 - Sábados: 19h30 (Jovens - Connect)
 `;
