@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { X, Copy, Check, QrCode, Building2, CreditCard } from 'lucide-react';
 
+export type GivingType = 'dizimo' | 'oferta';
+
 interface GivingModalProps {
   isOpen: boolean;
   onClose: () => void;
+  type: GivingType;
 }
 
-export const GivingModal: React.FC<GivingModalProps> = ({ isOpen, onClose }) => {
+export const GivingModal: React.FC<GivingModalProps> = ({ isOpen, onClose, type }) => {
   const [activeTab, setActiveTab] = useState<'pix' | 'bank'>('pix');
   const [copied, setCopied] = useState(false);
 
@@ -18,6 +21,17 @@ export const GivingModal: React.FC<GivingModalProps> = ({ isOpen, onClose }) => 
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Configuração de conteúdo dinâmico baseada no tipo
+  const content = type === 'dizimo' ? {
+    title: "Devolva seu Dízimo",
+    text: '"Trazei todos os dízimos à casa do tesouro, para que haja mantimento na minha casa, e depois fazei prova de mim nisto, diz o Senhor dos Exércitos."',
+    verse: "MALAQUIAS 3:10"
+  } : {
+    title: "Faça sua Oferta",
+    text: '"Cada um dê conforme determinou em seu coração, não com pesar ou por obrigação, pois Deus ama quem dá com alegria."',
+    verse: "2 CORÍNTIOS 9:7"
   };
 
   return (
@@ -40,11 +54,11 @@ export const GivingModal: React.FC<GivingModalProps> = ({ isOpen, onClose }) => 
             <X size={24} />
           </button>
           
-          <h3 className="text-2xl font-serif text-white mb-2">Faça sua Oferta</h3>
+          <h3 className="text-2xl font-serif text-white mb-2">{content.title}</h3>
           <p className="text-gray-300 text-sm font-light italic">
-            "Cada um dê conforme determinou em seu coração, não com pesar ou por obrigação, pois Deus ama quem dá com alegria."
+            {content.text}
           </p>
-          <span className="text-[#D64531] text-xs font-bold tracking-widest uppercase mt-2 block">2 Coríntios 9:7</span>
+          <span className="text-[#D64531] text-xs font-bold tracking-widest uppercase mt-2 block">{content.verse}</span>
         </div>
 
         {/* Tabs */}

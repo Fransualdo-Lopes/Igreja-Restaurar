@@ -17,21 +17,21 @@ Horários de Culto (use como base):
 
 export const sendMessageToGemini = async (message: string): Promise<string> => {
   try {
-    // Initialize inside the function to prevent app crash (white screen) on load
-    // if the API Key is missing or invalid in the environment variables.
-    const apiKey = process.env.API_KEY || '';
+    const apiKey = process.env.API_KEY;
+    
+    if (!apiKey) {
+      console.error("API Key não encontrada.");
+      return "Configuração da API ausente. Verifique o arquivo .env ou a configuração do projeto.";
+    }
+    
     const ai = new GoogleGenAI({ apiKey: apiKey });
     
     const model = 'gemini-2.5-flash';
     
+    // Uso simplificado para texto conforme documentação oficial
     const response = await ai.models.generateContent({
       model: model,
-      contents: [
-        {
-          role: 'user',
-          parts: [{ text: message }]
-        }
-      ],
+      contents: message, 
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
         temperature: 0.7,
@@ -41,6 +41,6 @@ export const sendMessageToGemini = async (message: string): Promise<string> => {
     return response.text || "Desculpe, não consegui processar sua mensagem no momento.";
   } catch (error) {
     console.error("Erro ao comunicar com Gemini:", error);
-    return "Tivemos um problema técnico momentâneo. Por favor, tente novamente mais tarde.";
+    return "No momento estou indisponível. Por favor, tente novamente mais tarde.";
   }
 };

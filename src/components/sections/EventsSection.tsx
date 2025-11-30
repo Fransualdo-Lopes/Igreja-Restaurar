@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar } from 'lucide-react';
-import { Event } from '../../types';
+import { Event } from '../../types/index';
 
 const events: Event[] = [
   {
@@ -27,6 +27,22 @@ const events: Event[] = [
     location: 'Online (Zoom)',
     category: 'Community'
   },
+  {
+    id: '4',
+    title: 'Culto de Mulheres',
+    date: '1ª Sexta do mês',
+    time: '19:30',
+    location: 'Templo Principal',
+    category: 'Community'
+  },
+  {
+    id: '5',
+    title: 'Culto de Homens',
+    date: '2º Sábado do mês',
+    time: '19:30',
+    location: 'Salão Anexo',
+    category: 'Community'
+  },
 ];
 
 export const EventsSection: React.FC = () => {
@@ -43,12 +59,14 @@ export const EventsSection: React.FC = () => {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {events.map((event) => (
             <div key={event.id} className="bg-white p-8 rounded-none border-l-4 border-[#D64531] shadow-sm hover:shadow-lg transition-shadow group">
               <div className="flex justify-between items-start mb-6">
                 <div className="bg-[#F9F7F2] text-gray-800 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded">
-                  {event.category}
+                  {event.category === 'Community' ? 'Comunhão' : 
+                   event.category === 'Worship' ? 'Culto' :
+                   event.category === 'Youth' ? 'Jovens' : event.category}
                 </div>
                 <Calendar className="text-gray-300 group-hover:text-[#D64531] transition-colors" size={24} />
               </div>

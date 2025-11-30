@@ -1,5 +1,5 @@
 import React from 'react';
-import { Ministry } from '../../types';
+import { Ministry } from '../../types/index';
 import { Heart, Users, Music, Flame } from 'lucide-react';
 
 export const MinistriesSection: React.FC = () => {
@@ -29,7 +29,8 @@ export const MinistriesSection: React.FC = () => {
       id: 'intercession',
       title: 'Intercessão',
       description: 'Um ministério dedicado a clamar pelas vidas, sustentando a igreja em oração.',
-      imageUrl: 'https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=2670&auto=format&fit=crop',
+      // Updated to a reliable image of holding hands/prayer group
+      imageUrl: 'https://images.unsplash.com/photo-1543615462-5264b8577000?q=80&w=2670&auto=format&fit=crop',
       icon: <Flame size={24} />
     }
   ];

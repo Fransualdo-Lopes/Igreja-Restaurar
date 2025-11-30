@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { EventsSection } from './components/EventsSection';
-import { MinistriesSection } from './components/MinistriesSection';
-import { AboutSection } from './components/AboutSection';
-import { SermonsSection } from './components/SermonsSection';
-import { Footer } from './components/Footer';
-import { ChatAssistant } from './components/ChatAssistant';
-import { GivingModal } from './components/GivingModal';
+import { Header } from './src/components/layout/Header';
+import { Hero } from './src/components/sections/Hero';
+import { EventsSection } from './src/components/sections/EventsSection';
+import { MinistriesSection } from './src/components/sections/MinistriesSection';
+import { AboutSection } from './src/components/sections/AboutSection';
+import { SermonsSection } from './src/components/sections/SermonsSection';
+import { Footer } from './src/components/layout/Footer';
+import { ChatAssistant } from './src/components/features/ChatAssistant';
+import { GivingModal, GivingType } from './src/components/ui/GivingModal';
 
 function App() {
-  const [isGivingModalOpen, setIsGivingModalOpen] = useState(false);
+  const [activeGivingType, setActiveGivingType] = useState<GivingType | null>(null);
 
   return (
     <div className="min-h-screen bg-[#F9F7F2] font-sans text-gray-900 selection:bg-[#D64531] selection:text-white">
-      <Header onOpenGivingModal={() => setIsGivingModalOpen(true)} />
+      <Header onOpenGivingModal={(type) => setActiveGivingType(type)} />
       
       <main>
         <Hero />
@@ -37,7 +37,11 @@ function App() {
 
       <Footer />
       <ChatAssistant />
-      <GivingModal isOpen={isGivingModalOpen} onClose={() => setIsGivingModalOpen(false)} />
+      <GivingModal 
+        isOpen={!!activeGivingType} 
+        onClose={() => setActiveGivingType(null)} 
+        type={activeGivingType || 'oferta'} // Default fallback
+      />
     </div>
   );
 }

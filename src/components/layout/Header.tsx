@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { GivingType } from '../ui/GivingModal';
 
 interface HeaderProps {
-  onOpenGivingModal: () => void;
+  onOpenGivingModal: (type: GivingType) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
@@ -103,12 +104,24 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
                 {item.label}
               </a>
             ))}
-            <button 
-              onClick={onOpenGivingModal}
-              className="bg-[#D64531] text-white px-5 py-2 rounded-full font-semibold hover:bg-[#b53a29] transition-colors text-sm uppercase tracking-wide"
-            >
-              Ofertar
-            </button>
+            <div className="flex items-center space-x-4">
+              <button 
+                onClick={() => onOpenGivingModal('dizimo')}
+                className={`px-5 py-2 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 shadow-md hover:scale-105 hover:shadow-lg ${
+                  isScrolled 
+                    ? 'bg-gray-100 text-gray-800 hover:bg-gray-200' 
+                    : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+                }`}
+              >
+                Dízimos
+              </button>
+              <button 
+                onClick={() => onOpenGivingModal('oferta')}
+                className="bg-[#D64531] text-white px-5 py-2 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 hover:bg-[#b53a29] hover:scale-105 hover:shadow-xl shadow-md"
+              >
+                Ofertar
+              </button>
+            </div>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -137,15 +150,26 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
                 {item.label}
               </a>
             ))}
-             <button 
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  onOpenGivingModal();
-                }}
-                className="bg-[#D64531] text-white px-5 py-3 rounded-md font-semibold w-full"
-              >
-              Ofertar
-            </button>
+            <div className="grid grid-cols-2 gap-4 mt-4">
+              <button 
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onOpenGivingModal('dizimo');
+                  }}
+                  className="bg-gray-200 text-gray-800 px-5 py-3 rounded-md font-semibold w-full hover:bg-gray-300 transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+                >
+                Dízimos
+              </button>
+              <button 
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    onOpenGivingModal('oferta');
+                  }}
+                  className="bg-[#D64531] text-white px-5 py-3 rounded-md font-semibold w-full hover:bg-[#b53a29] transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+                >
+                Ofertar
+              </button>
+            </div>
           </div>
         </div>
       )}

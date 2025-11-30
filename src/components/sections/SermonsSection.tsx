@@ -1,6 +1,6 @@
 import React from 'react';
 import { Play, Clock, Calendar, User } from 'lucide-react';
-import { Sermon } from '../../types';
+import { Sermon } from '../../types/index';
 
 const featuredSermon: Sermon = {
   id: 'featured',

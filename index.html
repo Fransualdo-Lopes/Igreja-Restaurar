@@ -29,24 +29,50 @@
     </script>
     <style>
         html { scroll-behavior: smooth; }
+        body { background-color: #F9F7F2; margin: 0; }
+        #root { min-height: 100vh; }
+        #error-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            padding: 2rem;
+            color: #ef4444;
+            font-family: monospace;
+            overflow: auto;
+        }
+        .loading-spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'DM Serif Display', serif;
+            color: #D64531;
+            font-size: 1.5rem;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
     </style>
-    <!-- Polyfill to support process.env in Vite environment -->
+    <!-- Polyfill for process.env -->
     <script>
-      // 1. Define global process object immediately to prevent ReferenceError
       window.process = window.process || {};
       window.process.env = window.process.env || {};
-      window.process.env.API_KEY = window.process.env.API_KEY || '';
-    </script>
-    <script type="module">
-      // 2. Bridge Vite env vars to process.env safely
+      // Ensure API Key is available safely
       try {
-        if (import.meta.env && import.meta.env.VITE_API_KEY) {
+        if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_KEY) {
           window.process.env.API_KEY = import.meta.env.VITE_API_KEY;
         }
-      } catch (e) {
-        // Ignore errors in environments where import.meta is not available
-      }
+      } catch (e) { console.log('Env load skipped'); }
     </script>
+    
+    <!-- Import Map with Clean React 18 Dependencies -->
 <script type="importmap">
 {
   "imports": {
@@ -58,9 +84,35 @@
   }
 }
 </script>
-</head>
+
+    <!-- Global Error Handler -->
+    <script>
+      window.addEventListener('error', function(event) {
+        const overlay = document.getElementById('error-overlay');
+        const spinner = document.getElementById('loading-spinner');
+        if (overlay) {
+          overlay.style.display = 'block';
+          if(spinner) spinner.style.display = 'none';
+          
+          const msg = document.createElement('div');
+          msg.textContent = `Erro: ${event.message} (Linha ${event.lineno})`;
+          msg.style.marginBottom = '10px';
+          msg.style.borderBottom = '1px solid #ffcccc';
+          msg.style.paddingBottom = '10px';
+          overlay.appendChild(msg);
+        }
+      });
+    </script>
+  </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div id="error-overlay">
+        <h2 style="color: #991b1b; font-weight: bold; margin-bottom: 1rem;">Ocorreu um erro:</h2>
+    </div>
+    
+    <div id="root">
+        <div id="loading-spinner" class="loading-spinner">Restaurar...</div>
+    </div>
+    
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>

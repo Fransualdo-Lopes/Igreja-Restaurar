@@ -30,12 +30,12 @@ export const Hero: React.FC = () => {
         </p>
         
         <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-          <button className="bg-[#D64531] text-white px-8 py-4 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-[#b53a29] transition-all flex items-center gap-2 group">
+          <button className="bg-[#D64531] text-white px-8 py-4 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-[#b53a29] hover:scale-105 transition-all duration-300 flex items-center gap-2 group shadow-lg hover:shadow-xl">
             Planeje sua visita
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </button>
           
-          <button className="bg-transparent border border-white text-white px-8 py-4 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-white hover:text-black transition-all">
+          <button className="bg-transparent border border-white text-white px-8 py-4 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-white hover:text-black hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
             Assista Online
           </button>
         </div>
