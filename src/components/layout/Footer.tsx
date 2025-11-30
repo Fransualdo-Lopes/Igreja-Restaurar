@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
   ];
 
   // Logo real da pasta public (versão branca para fundo escuro)
-  const logoLight = "/logo-branca.png";
+  const logoLight = "/logo-light.svg";
 
   return (
     <footer className="bg-[#1a1a1a] text-white pt-20 pb-10 border-t border-gray-800">
@@ -97,7 +97,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-gray-400">
                 <MapPin size={20} className="text-[#D64531] mt-1 shrink-0" />
-                <span>Rua Barão de Serra Azul, 123<br/>Jaderlândia, Paragominas - PA</span>
+                <span>Rua Barão de Serra Azul, 403<br/>Jaderlândia, Paragominas - PA</span>
               </li>
               <li className="flex items-center gap-3 text-gray-400">
                 <Phone size={20} className="text-[#D64531] shrink-0" />

@@ -44,8 +44,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
   ];
 
   // Logos reais da pasta public
-  const logoDark = "/logo-escura.png"; 
-  const logoLight = "/logo-branca.png";
+  const logoDark = "/logo-dark.svg"; 
+  const logoLight = "/logo-light.svg";
 
   return (
     <header 

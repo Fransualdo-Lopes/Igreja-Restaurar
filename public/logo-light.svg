@@ -1,0 +1,5 @@
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M25 8L25 42" stroke="#D64531" stroke-width="4" stroke-linecap="round"/>
+  <path d="M12 20L38 20" stroke="#D64531" stroke-width="4" stroke-linecap="round"/>
+  <text x="50" y="35" font-family="serif" font-size="28" fill="#FFFFFF" font-weight="bold">Restaurar</text>
+</svg>

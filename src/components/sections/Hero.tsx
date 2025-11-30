@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, MapPin } from 'lucide-react';
 
 export const Hero: React.FC = () => {
@@ -42,7 +42,7 @@ export const Hero: React.FC = () => {
 
         <div className="mt-16 flex justify-center items-center text-white/70 text-sm gap-2">
           <MapPin size={16} className="text-[#D64531]" />
-          <p>Rua Barão de Serra Azul, 123 - Jaderlândia, Paragominas - PA</p>
+          <p>Rua Barão de Serra Azul, 403 - Jaderlândia, Paragominas - PA</p>
         </div>
       </div>
     </div>
