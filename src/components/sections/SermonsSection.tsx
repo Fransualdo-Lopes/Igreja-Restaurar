@@ -1,5 +1,6 @@
-import React from 'react';
-import { Play, Clock, Calendar, User } from 'lucide-react';
+
+import React, { useState } from 'react';
+import { Play, Clock, Calendar, User, X, Youtube } from 'lucide-react';
 import { Sermon } from '../../types/index';
 
 const featuredSermon: Sermon = {
@@ -36,6 +37,13 @@ const recentSermons: Sermon[] = [
 ];
 
 export const SermonsSection: React.FC = () => {
+  const [showConstructionModal, setShowConstructionModal] = useState(false);
+
+  const handleSermonClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowConstructionModal(true);
+  };
+
   return (
     <section id="pregacoes" className="py-20 bg-[#F9F7F2]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,7 +53,10 @@ export const SermonsSection: React.FC = () => {
         </div>
 
         {/* Featured Sermon */}
-        <div className="bg-white rounded-none shadow-xl overflow-hidden mb-16 group cursor-pointer border border-gray-100">
+        <div 
+          onClick={handleSermonClick}
+          className="bg-white rounded-none shadow-xl overflow-hidden mb-16 group cursor-pointer border border-gray-100"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="relative h-64 lg:h-auto overflow-hidden">
               <img 
@@ -87,7 +98,10 @@ export const SermonsSection: React.FC = () => {
                 </div>
               </div>
 
-              <button className="bg-gray-900 text-white px-8 py-3 rounded-md font-semibold hover:bg-[#D64531] transition-colors self-start uppercase text-sm tracking-wider">
+              <button 
+                onClick={handleSermonClick}
+                className="bg-gray-900 text-white px-8 py-3 rounded-md font-semibold hover:bg-[#D64531] transition-colors self-start uppercase text-sm tracking-wider"
+              >
                 Assistir Mensagem
               </button>
             </div>
@@ -97,14 +111,18 @@ export const SermonsSection: React.FC = () => {
         {/* Recent Grid */}
         <div className="flex justify-between items-end mb-8">
           <h4 className="text-2xl font-serif text-gray-900">Mensagens Anteriores</h4>
-          <a href="#" className="text-gray-500 hover:text-[#D64531] border-b border-gray-300 hover:border-[#D64531] pb-1 transition-all text-sm hidden sm:block">
+          <a 
+            href="#" 
+            onClick={handleSermonClick}
+            className="text-gray-500 hover:text-[#D64531] border-b border-gray-300 hover:border-[#D64531] pb-1 transition-all text-sm hidden sm:block"
+          >
             Ver todas as mensagens
           </a>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {recentSermons.map((sermon) => (
-            <div key={sermon.id} className="group cursor-pointer">
+            <div key={sermon.id} className="group cursor-pointer" onClick={handleSermonClick}>
               <div className="relative aspect-video overflow-hidden rounded-md mb-4 bg-gray-200">
                  <img 
                   src={sermon.thumbnailUrl} 
@@ -133,12 +151,65 @@ export const SermonsSection: React.FC = () => {
         </div>
         
         <div className="mt-8 text-center sm:hidden">
-           <a href="#" className="text-gray-500 hover:text-[#D64531] border-b border-gray-300 hover:border-[#D64531] pb-1 transition-all text-sm">
+           <a 
+            href="#" 
+            onClick={handleSermonClick}
+            className="text-gray-500 hover:text-[#D64531] border-b border-gray-300 hover:border-[#D64531] pb-1 transition-all text-sm"
+          >
             Ver todas as mensagens
           </a>
         </div>
-
       </div>
+
+      {/* Construction Modal */}
+      {showConstructionModal && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+            onClick={() => setShowConstructionModal(false)}
+          ></div>
+          
+          <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in-95 duration-300 text-center p-8">
+            <button 
+              onClick={() => setShowConstructionModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-[#D64531] transition-colors"
+            >
+              <X size={24} />
+            </button>
+
+            <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 text-[#D64531]">
+              <Youtube size={32} />
+            </div>
+
+            <h3 className="text-2xl font-serif text-gray-900 mb-3">Graça e paz! ❤️</h3>
+            
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Estamos preparando esta seção com muito carinho para você. Em breve, todas as mensagens estarão disponíveis aqui.
+            </p>
+
+            <p className="text-gray-500 text-sm mb-6">
+              Enquanto isso, você pode acompanhar nossos cultos completos no YouTube.
+            </p>
+
+            <div className="space-y-3">
+              <a 
+                href="https://www.youtube.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block w-full bg-[#D64531] text-white py-3 rounded-lg font-semibold hover:bg-[#b53a29] transition-colors uppercase text-sm tracking-wider"
+              >
+                Ir para o YouTube
+              </a>
+              <button 
+                onClick={() => setShowConstructionModal(false)}
+                className="block w-full bg-gray-100 text-gray-600 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors uppercase text-sm tracking-wider"
+              >
+                Voltar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
