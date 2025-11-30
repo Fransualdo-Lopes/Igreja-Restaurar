@@ -9,6 +9,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,9 +43,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
     { label: 'Pregações', href: '#pregacoes' },
   ];
 
-  // TODO: Substitua estas URLs pelos caminhos das suas imagens na pasta public (ex: "/logo-escura.png")
-  const logoDark = "https://placehold.co/180x50/transparent/2D2D2D?text=Logo+Escura"; 
-  const logoLight = "https://placehold.co/180x50/transparent/FFFFFF?text=Logo+Branca";
+  // Logos reais da pasta public
+  const logoDark = "/logo-escura.png"; 
+  const logoLight = "/logo-branca.png";
 
   return (
     <header 
@@ -60,13 +61,23 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
             <a 
               href="#inicio" 
               onClick={(e) => scrollToSection(e, '#inicio')}
-              className="block"
+              className="block group"
             >
-              <img 
-                src={isScrolled ? logoDark : logoLight} 
-                alt="Logo Igreja Restaurar" 
-                className="h-10 md:h-12 w-auto transition-all duration-300 object-contain"
-              />
+              {!imgError ? (
+                <img 
+                  src={isScrolled ? logoDark : logoLight} 
+                  alt="Logo Igreja Restaurar" 
+                  className="h-10 md:h-12 w-auto transition-all duration-300 object-contain"
+                  onError={() => setImgError(true)}
+                />
+              ) : (
+                // Fallback de Texto caso a imagem não carregue
+                <div className="flex items-center gap-2">
+                  <span className={`text-2xl font-serif font-bold tracking-tight ${isScrolled ? 'text-[#D64531]' : 'text-white'}`}>
+                    Restaurar
+                  </span>
+                </div>
+              )}
             </a>
           </div>
 
@@ -131,7 +142,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
               </a>
             ))}
             <div className="grid grid-cols-2 gap-4 mt-4">
-              <button 
+               <button 
                   onClick={() => {
                     setIsMobileMenuOpen(false);
                     onOpenGivingModal('dizimo');

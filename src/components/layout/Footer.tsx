@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Instagram, Youtube, Facebook, Mail, Phone, MapPin } from 'lucide-react';
 
 export const Footer: React.FC = () => {
+  const [imgError, setImgError] = useState(false);
+
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const element = document.querySelector(href);
@@ -25,8 +27,8 @@ export const Footer: React.FC = () => {
     { label: 'Pregações', href: '#pregacoes' },
   ];
 
-  // TODO: Substitua esta URL pelo caminho da sua imagem na pasta public (ex: "/logo-branca.png")
-  const logoLight = "https://placehold.co/180x50/transparent/FFFFFF?text=Logo+Branca";
+  // Logo real da pasta public (versão branca para fundo escuro)
+  const logoLight = "/logo-branca.png";
 
   return (
     <footer className="bg-[#1a1a1a] text-white pt-20 pb-10 border-t border-gray-800">
@@ -41,11 +43,18 @@ export const Footer: React.FC = () => {
               onClick={(e) => scrollToSection(e, '#inicio')}
               className="block cursor-pointer"
             >
-              <img 
-                src={logoLight} 
-                alt="Logo Igreja Restaurar" 
-                className="h-10 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
-              />
+              {!imgError ? (
+                <img 
+                  src={logoLight} 
+                  alt="Logo Igreja Restaurar" 
+                  className="h-10 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                  onError={() => setImgError(true)}
+                />
+              ) : (
+                <span className="text-2xl font-serif font-bold tracking-tight text-white">
+                    Restaurar
+                </span>
+              )}
             </a>
 
             <p className="text-gray-400 font-light leading-relaxed">
