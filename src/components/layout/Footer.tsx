@@ -25,6 +25,9 @@ export const Footer: React.FC = () => {
     { label: 'Pregações', href: '#pregacoes' },
   ];
 
+  // TODO: Substitua esta URL pelo caminho da sua imagem na pasta public (ex: "/logo-branca.png")
+  const logoLight = "https://placehold.co/180x50/transparent/FFFFFF?text=Logo+Branca";
+
   return (
     <footer className="bg-[#1a1a1a] text-white pt-20 pb-10 border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,40 +35,17 @@ export const Footer: React.FC = () => {
           
           {/* Brand */}
           <div className="space-y-6">
-            {/* Logo SVG */}
+            {/* Logo Image */}
             <a 
               href="#inicio" 
               onClick={(e) => scrollToSection(e, '#inicio')}
               className="block cursor-pointer"
             >
-              <svg height="42" viewBox="0 0 210 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-90">
-                  {/* Vase Icon */}
-                  <path 
-                    d="M178 12C178 12 173 12 170 16C166 21 164 28 164 34C164 42 170 47 180 47C190 47 196 42 196 34C196 28 194 21 190 16C187 12 182 12 182 12" 
-                    stroke="#D64531" 
-                    strokeWidth="2.5" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                  <path 
-                    d="M170 16C170 16 175 19 180 19C185 19 190 16 190 16" 
-                    stroke="#D64531" 
-                    strokeWidth="2.5" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                  
-                  {/* Text */}
-                  <text 
-                    x="0" 
-                    y="38" 
-                    fill="#FFFFFF" 
-                    fontFamily='"DM Serif Display", serif' 
-                    fontSize="36" 
-                  >
-                    Restaurar
-                  </text>
-              </svg>
+              <img 
+                src={logoLight} 
+                alt="Logo Igreja Restaurar" 
+                className="h-10 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+              />
             </a>
 
             <p className="text-gray-400 font-light leading-relaxed">
