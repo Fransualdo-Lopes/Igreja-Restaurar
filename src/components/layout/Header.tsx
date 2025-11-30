@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { GivingType } from '../ui/GivingModal';
 
 interface HeaderProps {
@@ -10,6 +10,33 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    // Check local storage or system preference on mount
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark');
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    
+    if (newTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,10 +74,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
   const logoDark = "/logo-dark.svg"; 
   const logoLight = "/logo-light.svg";
 
+  // Determine which logo to show based on scroll and theme
+  const showDarkLogo = isScrolled && theme !== 'dark';
+
   return (
     <header 
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-6'
+        isScrolled ? 'bg-white dark:bg-gray-900 shadow-md py-2' : 'bg-transparent py-6'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,7 +95,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
             >
               {!imgError ? (
                 <img 
-                  src={isScrolled ? logoDark : logoLight} 
+                  src={showDarkLogo ? logoDark : logoLight} 
                   alt="Logo Igreja Restaurar" 
                   className="h-10 md:h-12 w-auto transition-all duration-300 object-contain"
                   onError={() => setImgError(true)}
@@ -73,7 +103,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
               ) : (
                 // Fallback de Texto caso a imagem não carregue
                 <div className="flex items-center gap-2">
-                  <span className={`text-2xl font-serif font-bold tracking-tight ${isScrolled ? 'text-[#D64531]' : 'text-white'}`}>
+                  <span className={`text-2xl font-serif font-bold tracking-tight ${isScrolled ? 'text-[#D64531] dark:text-[#D64531]' : 'text-white'}`}>
                     Restaurar
                   </span>
                 </div>
@@ -89,18 +119,32 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
                 className={`text-sm font-medium uppercase tracking-wider transition-colors hover:text-[#D64531] ${
-                  isScrolled ? 'text-gray-800' : 'text-white'
+                  isScrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'
                 }`}
               >
                 {item.label}
               </a>
             ))}
+            
             <div className="flex items-center space-x-4">
+              {/* Theme Toggle Button */}
+              <button
+                onClick={toggleTheme}
+                className={`p-2 rounded-full transition-colors ${
+                  isScrolled 
+                    ? 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800' 
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
+                title={theme === 'dark' ? "Modo Claro" : "Modo Escuro"}
+              >
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+
               <button 
                 onClick={() => onOpenGivingModal('dizimo')}
                 className={`px-5 py-2 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 shadow-md hover:scale-105 hover:shadow-lg ${
                   isScrolled 
-                    ? 'bg-gray-100 text-gray-800 hover:bg-gray-200' 
+                    ? 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700' 
                     : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
                 }`}
               >
@@ -116,10 +160,20 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-4">
+             <button
+                onClick={toggleTheme}
+                className={`p-2 rounded-full transition-colors ${
+                  isScrolled 
+                    ? 'text-gray-600 dark:text-gray-300' 
+                    : 'text-white'
+                }`}
+              >
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`p-2 rounded-md ${isScrolled ? 'text-gray-800' : 'text-white'}`}
+              className={`p-2 rounded-md ${isScrolled ? 'text-gray-800 dark:text-white' : 'text-white'}`}
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -129,14 +183,14 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-[#F9F7F2] shadow-xl border-t border-gray-100">
+        <div className="md:hidden absolute top-full left-0 w-full bg-[#F9F7F2] dark:bg-gray-900 shadow-xl border-t border-gray-100 dark:border-gray-800">
           <div className="flex flex-col px-4 py-6 space-y-4">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
-                className="text-gray-800 text-lg font-medium hover:text-[#D64531]"
+                className="text-gray-800 dark:text-gray-200 text-lg font-medium hover:text-[#D64531] dark:hover:text-[#D64531]"
               >
                 {item.label}
               </a>
@@ -147,7 +201,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
                     setIsMobileMenuOpen(false);
                     onOpenGivingModal('dizimo');
                   }}
-                  className="bg-gray-200 text-gray-800 px-5 py-3 rounded-md font-semibold w-full hover:bg-gray-300 transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
+                  className="bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-5 py-3 rounded-md font-semibold w-full hover:bg-gray-300 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
                 >
                 Dízimos
               </button>

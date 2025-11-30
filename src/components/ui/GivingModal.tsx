@@ -43,10 +43,10 @@ export const GivingModal: React.FC<GivingModalProps> = ({ isOpen, onClose, type 
       ></div>
 
       {/* Modal Card */}
-      <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+      <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in-95 duration-300 transition-colors">
         
         {/* Header */}
-        <div className="bg-[#2D2D2D] p-6 text-center relative">
+        <div className="bg-[#2D2D2D] dark:bg-[#1a1a1a] p-6 text-center relative transition-colors">
           <button 
             onClick={onClose}
             className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
@@ -62,13 +62,13 @@ export const GivingModal: React.FC<GivingModalProps> = ({ isOpen, onClose, type 
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-100">
+        <div className="flex border-b border-gray-100 dark:border-gray-700">
           <button
             onClick={() => setActiveTab('pix')}
             className={`flex-1 py-4 text-sm font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 ${
               activeTab === 'pix' 
-                ? 'text-[#D64531] border-b-2 border-[#D64531] bg-red-50/30' 
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-[#D64531] border-b-2 border-[#D64531] bg-red-50/30 dark:bg-red-900/10' 
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
             }`}
           >
             <QrCode size={18} />
@@ -78,8 +78,8 @@ export const GivingModal: React.FC<GivingModalProps> = ({ isOpen, onClose, type 
             onClick={() => setActiveTab('bank')}
             className={`flex-1 py-4 text-sm font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 ${
               activeTab === 'bank' 
-                ? 'text-[#D64531] border-b-2 border-[#D64531] bg-red-50/30' 
-                : 'text-gray-500 hover:text-gray-700'
+                ? 'text-[#D64531] border-b-2 border-[#D64531] bg-red-50/30 dark:bg-red-900/10' 
+                : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
             }`}
           >
             <Building2 size={18} />
@@ -101,12 +101,12 @@ export const GivingModal: React.FC<GivingModalProps> = ({ isOpen, onClose, type 
               </div>
               
               <div className="w-full">
-                <p className="text-xs text-gray-500 uppercase tracking-wider mb-2 font-semibold">Chave PIX (CNPJ)</p>
-                <div className="flex items-center gap-2 bg-gray-100 p-3 rounded-lg border border-gray-200">
-                  <span className="flex-1 font-mono text-gray-800 text-lg">{pixKey}</span>
+                <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 font-semibold transition-colors">Chave PIX (CNPJ)</p>
+                <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700 p-3 rounded-lg border border-gray-200 dark:border-gray-600 transition-colors">
+                  <span className="flex-1 font-mono text-gray-800 dark:text-gray-200 text-lg">{pixKey}</span>
                   <button 
                     onClick={() => handleCopy(pixKey)}
-                    className="text-[#D64531] hover:bg-white p-2 rounded-md transition-colors"
+                    className="text-[#D64531] hover:bg-white dark:hover:bg-gray-600 p-2 rounded-md transition-colors"
                     title="Copiar chave"
                   >
                     {copied ? <Check size={20} /> : <Copy size={20} />}
@@ -117,35 +117,35 @@ export const GivingModal: React.FC<GivingModalProps> = ({ isOpen, onClose, type 
             </div>
           ) : (
             <div className="space-y-6">
-              <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border border-gray-100">
+              <div className="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600 transition-colors">
                 <div className="bg-[#D64531]/10 p-3 rounded-full text-[#D64531]">
                     <CreditCard size={24} />
                 </div>
                 <div className="space-y-1">
-                    <p className="text-xs text-gray-500 uppercase font-bold">Banco</p>
-                    <p className="text-gray-900 font-medium">Banco do Brasil (001)</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold transition-colors">Banco</p>
+                    <p className="text-gray-900 dark:text-white font-medium transition-colors">Banco do Brasil (001)</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
-                    <p className="text-xs text-gray-500 uppercase font-bold mb-1">Agência</p>
-                    <p className="text-gray-900 font-mono">1234-5</p>
+                <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600 transition-colors">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold mb-1 transition-colors">Agência</p>
+                    <p className="text-gray-900 dark:text-white font-mono transition-colors">1234-5</p>
                 </div>
-                <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
-                    <p className="text-xs text-gray-500 uppercase font-bold mb-1">Conta Corrente</p>
-                    <p className="text-gray-900 font-mono">99999-X</p>
+                <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600 transition-colors">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold mb-1 transition-colors">Conta Corrente</p>
+                    <p className="text-gray-900 dark:text-white font-mono transition-colors">99999-X</p>
                 </div>
               </div>
 
-              <div className="p-4 bg-gray-50 rounded-lg border border-gray-100 flex justify-between items-center">
+              <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-100 dark:border-gray-600 flex justify-between items-center transition-colors">
                  <div>
-                    <p className="text-xs text-gray-500 uppercase font-bold mb-1">CNPJ</p>
-                    <p className="text-gray-900 font-mono">00.000.000/0001-00</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 uppercase font-bold mb-1 transition-colors">CNPJ</p>
+                    <p className="text-gray-900 dark:text-white font-mono transition-colors">00.000.000/0001-00</p>
                  </div>
                  <button 
                     onClick={() => handleCopy("00.000.000/0001-00")}
-                    className="text-[#D64531] hover:bg-white p-2 rounded-md transition-colors"
+                    className="text-[#D64531] hover:bg-white dark:hover:bg-gray-600 p-2 rounded-md transition-colors"
                   >
                     <Copy size={18} />
                   </button>
@@ -155,8 +155,8 @@ export const GivingModal: React.FC<GivingModalProps> = ({ isOpen, onClose, type 
         </div>
 
         {/* Footer */}
-        <div className="bg-gray-50 p-4 text-center border-t border-gray-100">
-          <p className="text-xs text-gray-500">
+        <div className="bg-gray-50 dark:bg-gray-700 p-4 text-center border-t border-gray-100 dark:border-gray-600 transition-colors">
+          <p className="text-xs text-gray-500 dark:text-gray-400 transition-colors">
             Dúvidas? Entre em contato com a tesouraria pelo WhatsApp.
           </p>
         </div>

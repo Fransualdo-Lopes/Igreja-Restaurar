@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Play, Clock, Calendar, User, X, Youtube } from 'lucide-react';
 import { Sermon } from '../../types/index';
@@ -45,17 +44,17 @@ export const SermonsSection: React.FC = () => {
   };
 
   return (
-    <section id="pregacoes" className="py-20 bg-[#F9F7F2]">
+    <section id="pregacoes" className="py-20 bg-[#F9F7F2] dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-[#D64531] text-sm font-bold tracking-widest uppercase mb-2">Edificação</h2>
-          <h3 className="text-4xl md:text-5xl font-serif text-gray-900">Nossas Pregações</h3>
+          <h3 className="text-4xl md:text-5xl font-serif text-gray-900 dark:text-white transition-colors">Nossas Pregações</h3>
         </div>
 
         {/* Featured Sermon */}
         <div 
           onClick={handleSermonClick}
-          className="bg-white rounded-none shadow-xl overflow-hidden mb-16 group cursor-pointer border border-gray-100"
+          className="bg-white dark:bg-gray-800 rounded-none shadow-xl overflow-hidden mb-16 group cursor-pointer border border-gray-100 dark:border-gray-700 transition-colors duration-300"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="relative h-64 lg:h-auto overflow-hidden">
@@ -76,14 +75,14 @@ export const SermonsSection: React.FC = () => {
                 <span className="w-2 h-2 rounded-full bg-[#D64531] animate-pulse"></span>
                 Última Mensagem
               </div>
-              <h4 className="text-3xl md:text-4xl font-serif text-gray-900 mb-4 leading-tight">
+              <h4 className="text-3xl md:text-4xl font-serif text-gray-900 dark:text-white mb-4 leading-tight transition-colors">
                 {featuredSermon.title}
               </h4>
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed transition-colors">
                 Uma mensagem poderosa sobre renovação e propósito. Descubra como Deus quer restaurar áreas da sua vida que pareciam perdidas.
               </p>
               
-              <div className="flex flex-wrap gap-6 text-sm text-gray-500 mb-8">
+              <div className="flex flex-wrap gap-6 text-sm text-gray-500 dark:text-gray-400 mb-8 transition-colors">
                 <div className="flex items-center gap-2">
                   <User size={16} className="text-[#D64531]" />
                   {featuredSermon.preacher}
@@ -100,7 +99,7 @@ export const SermonsSection: React.FC = () => {
 
               <button 
                 onClick={handleSermonClick}
-                className="bg-gray-900 text-white px-8 py-3 rounded-md font-semibold hover:bg-[#D64531] transition-colors self-start uppercase text-sm tracking-wider"
+                className="bg-gray-900 dark:bg-gray-700 text-white px-8 py-3 rounded-md font-semibold hover:bg-[#D64531] dark:hover:bg-[#D64531] transition-colors self-start uppercase text-sm tracking-wider"
               >
                 Assistir Mensagem
               </button>
@@ -110,11 +109,11 @@ export const SermonsSection: React.FC = () => {
 
         {/* Recent Grid */}
         <div className="flex justify-between items-end mb-8">
-          <h4 className="text-2xl font-serif text-gray-900">Mensagens Anteriores</h4>
+          <h4 className="text-2xl font-serif text-gray-900 dark:text-white transition-colors">Mensagens Anteriores</h4>
           <a 
             href="#" 
             onClick={handleSermonClick}
-            className="text-gray-500 hover:text-[#D64531] border-b border-gray-300 hover:border-[#D64531] pb-1 transition-all text-sm hidden sm:block"
+            className="text-gray-500 dark:text-gray-400 hover:text-[#D64531] dark:hover:text-[#D64531] border-b border-gray-300 dark:border-gray-700 hover:border-[#D64531] pb-1 transition-all text-sm hidden sm:block"
           >
             Ver todas as mensagens
           </a>
@@ -123,7 +122,7 @@ export const SermonsSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {recentSermons.map((sermon) => (
             <div key={sermon.id} className="group cursor-pointer" onClick={handleSermonClick}>
-              <div className="relative aspect-video overflow-hidden rounded-md mb-4 bg-gray-200">
+              <div className="relative aspect-video overflow-hidden rounded-md mb-4 bg-gray-200 dark:bg-gray-700">
                  <img 
                   src={sermon.thumbnailUrl} 
                   alt={sermon.title} 
@@ -137,12 +136,12 @@ export const SermonsSection: React.FC = () => {
               </div>
               
               <div>
-                <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
+                <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-2 transition-colors">
                   <span>{sermon.date}</span>
                   <span>•</span>
                   <span>{sermon.preacher}</span>
                 </div>
-                <h5 className="text-xl font-serif text-gray-900 group-hover:text-[#D64531] transition-colors line-clamp-2">
+                <h5 className="text-xl font-serif text-gray-900 dark:text-white group-hover:text-[#D64531] transition-colors line-clamp-2">
                   {sermon.title}
                 </h5>
               </div>
@@ -154,7 +153,7 @@ export const SermonsSection: React.FC = () => {
            <a 
             href="#" 
             onClick={handleSermonClick}
-            className="text-gray-500 hover:text-[#D64531] border-b border-gray-300 hover:border-[#D64531] pb-1 transition-all text-sm"
+            className="text-gray-500 dark:text-gray-400 hover:text-[#D64531] dark:hover:text-[#D64531] border-b border-gray-300 dark:border-gray-700 hover:border-[#D64531] pb-1 transition-all text-sm"
           >
             Ver todas as mensagens
           </a>
@@ -169,7 +168,7 @@ export const SermonsSection: React.FC = () => {
             onClick={() => setShowConstructionModal(false)}
           ></div>
           
-          <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in-95 duration-300 text-center p-8">
+          <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in-95 duration-300 text-center p-8 transition-colors">
             <button 
               onClick={() => setShowConstructionModal(false)}
               className="absolute top-4 right-4 text-gray-400 hover:text-[#D64531] transition-colors"
@@ -177,17 +176,17 @@ export const SermonsSection: React.FC = () => {
               <X size={24} />
             </button>
 
-            <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 text-[#D64531]">
+            <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-6 text-[#D64531]">
               <Youtube size={32} />
             </div>
 
-            <h3 className="text-2xl font-serif text-gray-900 mb-3">Graça e paz! ❤️</h3>
+            <h3 className="text-2xl font-serif text-gray-900 dark:text-white mb-3 transition-colors">Graça e paz! ❤️</h3>
             
-            <p className="text-gray-600 mb-6 leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed transition-colors">
               Estamos preparando esta seção com muito carinho para você. Em breve, todas as mensagens estarão disponíveis aqui.
             </p>
 
-            <p className="text-gray-500 text-sm mb-6">
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-6 transition-colors">
               Enquanto isso, você pode acompanhar nossos cultos completos no YouTube.
             </p>
 
@@ -202,7 +201,7 @@ export const SermonsSection: React.FC = () => {
               </a>
               <button 
                 onClick={() => setShowConstructionModal(false)}
-                className="block w-full bg-gray-100 text-gray-600 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors uppercase text-sm tracking-wider"
+                className="block w-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 py-3 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors uppercase text-sm tracking-wider"
               >
                 Voltar
               </button>

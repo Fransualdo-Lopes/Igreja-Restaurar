@@ -36,19 +36,19 @@ export const MinistriesSection: React.FC = () => {
   ];
 
   return (
-    <section id="ministerios" className="py-20 bg-white">
+    <section id="ministerios" className="py-20 bg-white dark:bg-gray-950 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-[#D64531] text-sm font-bold tracking-widest uppercase mb-2">Envolva-se</h2>
-          <h3 className="text-4xl md:text-5xl font-serif text-gray-900 mb-6">Nossos Ministérios</h3>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg font-light">
+          <h3 className="text-4xl md:text-5xl font-serif text-gray-900 dark:text-white mb-6 transition-colors">Nossos Ministérios</h3>
+          <p className="text-gray-500 dark:text-gray-400 max-w-2xl mx-auto text-lg font-light transition-colors">
             Há um lugar para todos na família Restaurar. Descubra onde você pode servir, crescer e fazer conexões significativas.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {ministries.map((ministry) => (
-            <div key={ministry.id} className="group relative h-[400px] overflow-hidden cursor-pointer">
+            <div key={ministry.id} className="group relative h-[400px] overflow-hidden cursor-pointer rounded-sm">
               {/* Background Image */}
               <img 
                 src={ministry.imageUrl} 
@@ -61,7 +61,7 @@ export const MinistriesSection: React.FC = () => {
 
               {/* Content */}
               <div className="absolute inset-0 p-8 flex flex-col justify-end items-start text-white">
-                <div className="bg-[#D64531] p-3 rounded-full mb-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                <div className="bg-[#D64531] p-3 rounded-full mb-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 text-white">
                   {ministry.icon}
                 </div>
                 <h4 className="text-2xl font-serif mb-2">{ministry.title}</h4>

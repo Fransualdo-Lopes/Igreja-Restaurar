@@ -2,7 +2,7 @@ import React from 'react';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="sobre-nos" className="py-24 bg-[#2D2D2D] text-white relative overflow-hidden">
+    <section id="sobre-nos" className="py-24 bg-[#2D2D2D] dark:bg-[#0a0a0a] text-white relative overflow-hidden transition-colors duration-300">
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#D64531] opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
@@ -23,13 +23,13 @@ export const AboutSection: React.FC = () => {
 
                 <div>
                     <h2 className="text-[#D64531] text-sm font-bold tracking-widest uppercase mb-4">Nossa História</h2>
-                    <h3 className="text-4xl md:text-5xl font-serif mb-8 leading-tight">
+                    <h3 className="text-4xl md:text-5xl font-serif mb-8 leading-tight text-white dark:text-gray-100">
                         Restaurando a essência,<br/> construindo o futuro.
                     </h3>
-                    <p className="text-gray-300 text-lg mb-6 font-light leading-relaxed">
+                    <p className="text-gray-300 dark:text-gray-400 text-lg mb-6 font-light leading-relaxed">
                         A Igreja Restaurar nasceu com o propósito de ser um lugar de cura e recomeço. Acreditamos que o Evangelho não é apenas sobre religião, mas sobre um relacionamento vivo com Deus que transforma todas as áreas da vida.
                     </p>
-                    <p className="text-gray-300 text-lg mb-8 font-light leading-relaxed">
+                    <p className="text-gray-300 dark:text-gray-400 text-lg mb-8 font-light leading-relaxed">
                         Nossa missão é acolher pessoas, ensinar a verdade bíblica e enviar discípulos para impactar a sociedade. Seja qual for sua história, aqui você tem um lugar.
                     </p>
                     

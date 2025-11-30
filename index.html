@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
@@ -30,6 +31,8 @@
     <style>
         html { scroll-behavior: smooth; }
         body { background-color: #F9F7F2; margin: 0; }
+        /* Dark mode body background fallback */
+        html.dark body { background-color: #111827; }
         #root { min-height: 100vh; }
         #error-overlay {
             display: none;

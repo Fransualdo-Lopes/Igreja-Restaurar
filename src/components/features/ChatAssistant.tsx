@@ -54,12 +54,12 @@ export const ChatAssistant: React.FC = () => {
 
       {/* Chat Window */}
       <div 
-        className={`fixed bottom-0 right-0 sm:bottom-6 sm:right-6 w-full sm:w-[400px] bg-white sm:rounded-2xl shadow-2xl z-50 transition-all duration-300 transform ${
+        className={`fixed bottom-0 right-0 sm:bottom-6 sm:right-6 w-full sm:w-[400px] bg-white dark:bg-gray-800 sm:rounded-2xl shadow-2xl z-50 transition-all duration-300 transform ${
           isOpen ? 'translate-y-0 opacity-100' : 'translate-y-[120%] opacity-0'
-        } flex flex-col max-h-[100vh] sm:max-h-[600px] h-full sm:h-auto border border-gray-200`}
+        } flex flex-col max-h-[100vh] sm:max-h-[600px] h-full sm:h-auto border border-gray-200 dark:border-gray-700`}
       >
         {/* Header */}
-        <div className="bg-[#2D2D2D] text-white p-4 sm:rounded-t-2xl flex justify-between items-center">
+        <div className="bg-[#2D2D2D] dark:bg-[#1a1a1a] text-white p-4 sm:rounded-t-2xl flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="bg-white/10 p-2 rounded-full">
               <Sparkles size={18} className="text-[#D64531]" />
@@ -75,7 +75,7 @@ export const ChatAssistant: React.FC = () => {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 bg-[#F9F7F2] space-y-4 min-h-[300px]">
+        <div className="flex-1 overflow-y-auto p-4 bg-[#F9F7F2] dark:bg-gray-900 space-y-4 min-h-[300px] transition-colors">
           {messages.map((msg, idx) => (
             <div
               key={idx}
@@ -85,7 +85,7 @@ export const ChatAssistant: React.FC = () => {
                 className={`max-w-[80%] p-3 text-sm rounded-2xl ${
                   msg.role === 'user'
                     ? 'bg-[#D64531] text-white rounded-br-none'
-                    : 'bg-white text-gray-800 shadow-sm border border-gray-100 rounded-bl-none'
+                    : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 shadow-sm border border-gray-100 dark:border-gray-700 rounded-bl-none'
                 }`}
               >
                 {msg.text}
@@ -94,7 +94,7 @@ export const ChatAssistant: React.FC = () => {
           ))}
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-white p-3 rounded-2xl rounded-bl-none shadow-sm border border-gray-100 flex gap-2 items-center">
+              <div className="bg-white dark:bg-gray-800 p-3 rounded-2xl rounded-bl-none shadow-sm border border-gray-100 dark:border-gray-700 flex gap-2 items-center">
                 <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></span>
                 <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100"></span>
                 <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200"></span>
@@ -105,7 +105,7 @@ export const ChatAssistant: React.FC = () => {
         </div>
 
         {/* Input */}
-        <div className="p-4 bg-white border-t border-gray-100">
+        <div className="p-4 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 transition-colors">
           <div className="flex gap-2">
             <input
               type="text"
@@ -113,7 +113,7 @@ export const ChatAssistant: React.FC = () => {
               onChange={(e) => setInputText(e.target.value)}
               onKeyDown={handleKeyPress}
               placeholder="Digite sua mensagem..."
-              className="flex-1 bg-gray-50 border border-gray-200 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-[#D64531] focus:ring-1 focus:ring-[#D64531]"
+              className="flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-[#D64531] focus:ring-1 focus:ring-[#D64531] dark:text-white transition-colors"
             />
             <button
               onClick={handleSend}
