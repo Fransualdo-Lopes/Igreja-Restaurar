@@ -33,21 +33,23 @@ export const Hero: React.FC = () => {
           alt="Worship Atmosphere" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30"></div>
+        {/* Overlay escurecido para melhor contraste do texto */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/50"></div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto mt-16">
-        <span className="inline-block py-1 px-3 border border-white/30 rounded-full text-white/80 text-xs md:text-sm tracking-[0.2em] uppercase mb-6 backdrop-blur-sm">
+        <span className="inline-block py-1 px-3 border border-white/50 rounded-full text-white font-medium text-xs md:text-sm tracking-[0.2em] uppercase mb-6 backdrop-blur-md bg-black/10">
           Bem-vindo à Restaurar
         </span>
         
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-white mb-6 leading-tight">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-white mb-6 leading-tight drop-shadow-lg">
           Um lugar para <br/>
           <span className="italic text-[#D64531]">recomeçar</span>
         </h1>
         
-        <p className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
+        <p className="text-gray-100 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-normal leading-relaxed drop-shadow-md">
           Somos uma comunidade apaixonada por Jesus e comprometida em restaurar vidas através do amor, da fé e do serviço.
         </p>
         
@@ -62,7 +64,7 @@ export const Hero: React.FC = () => {
           
           <button 
             onClick={handleWatchOnline}
-            className="bg-transparent border border-white text-white px-8 py-4 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-white hover:text-black hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="bg-white/10 backdrop-blur-sm border border-white text-white px-8 py-4 rounded-full font-bold text-sm tracking-widest uppercase hover:bg-white hover:text-black hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Assista Online
           </button>
@@ -70,7 +72,7 @@ export const Hero: React.FC = () => {
 
         <div 
           onClick={handlePlanVisit}
-          className="mt-16 flex justify-center items-center text-white/70 text-sm gap-2 cursor-pointer hover:text-white transition-colors group"
+          className="mt-16 flex justify-center items-center text-gray-200 text-sm gap-2 cursor-pointer hover:text-white transition-colors group font-medium drop-shadow-md"
           title="Abrir no Google Maps"
         >
           <MapPin size={16} className="text-[#D64531] group-hover:scale-110 transition-transform" />

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Ministry } from '../../types/index';
 import { Heart, Users, Music, Flame } from 'lucide-react';
@@ -48,7 +49,7 @@ export const MinistriesSection: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {ministries.map((ministry) => (
-            <div key={ministry.id} className="group relative h-[400px] overflow-hidden cursor-pointer rounded-sm">
+            <div key={ministry.id} className="group relative h-[400px] overflow-hidden cursor-pointer rounded-sm shadow-lg">
               {/* Background Image */}
               <img 
                 src={ministry.imageUrl} 
@@ -56,16 +57,16 @@ export const MinistriesSection: React.FC = () => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
               />
               
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors duration-300"></div>
+              {/* Overlay - Aumentado para melhor leitura */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30 group-hover:via-black/60 transition-colors duration-300"></div>
 
               {/* Content */}
               <div className="absolute inset-0 p-8 flex flex-col justify-end items-start text-white">
-                <div className="bg-[#D64531] p-3 rounded-full mb-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 text-white">
+                <div className="bg-[#D64531] p-3 rounded-full mb-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 text-white shadow-lg">
                   {ministry.icon}
                 </div>
-                <h4 className="text-2xl font-serif mb-2">{ministry.title}</h4>
-                <p className="text-gray-300 text-sm opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
+                <h4 className="text-2xl font-serif mb-2 font-medium drop-shadow-md">{ministry.title}</h4>
+                <p className="text-gray-100 text-sm opacity-0 h-0 group-hover:opacity-100 group-hover:h-auto transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 leading-relaxed font-medium">
                   {ministry.description}
                 </p>
                 <div className="w-12 h-1 bg-[#D64531] mt-4 transition-all duration-300 group-hover:w-full"></div>
