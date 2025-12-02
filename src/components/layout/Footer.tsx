@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Instagram, Youtube, Facebook, Mail, Phone, MapPin, MessageCircle, Heart, X } from 'lucide-react';
 
@@ -108,7 +107,7 @@ export const Footer: React.FC = () => {
                 <img 
                   src={logoLight} 
                   alt="Logo Igreja Restaurar" 
-                  className="h-10 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                  className="h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
                   onError={() => setImgError(true)}
                 />
               ) : (
