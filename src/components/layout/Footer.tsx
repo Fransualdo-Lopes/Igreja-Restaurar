@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
   ];
 
   // Logo real da pasta public (versão branca para fundo escuro)
-  const logoLight = "/logo-light.svg";
+  const logoLight = "/1.svg";
 
   // Helper para conteúdo do modal
   const getModalContent = () => {
