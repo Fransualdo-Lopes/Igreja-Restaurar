@@ -107,7 +107,7 @@ export const Footer: React.FC = () => {
                 <img 
                   src={logoLight} 
                   alt="Logo Igreja Restaurar" 
-                  className="h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                  className="h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity -ml-3"
                   onError={() => setImgError(true)}
                 />
               ) : (

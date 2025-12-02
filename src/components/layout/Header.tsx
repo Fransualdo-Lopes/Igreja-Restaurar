@@ -97,7 +97,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
                 <img 
                   src={showDarkLogo ? logoDark : logoLight} 
                   alt="Logo Igreja Restaurar" 
-                  className="h-12 md:h-16 w-auto transition-all duration-300 object-contain"
+                  className="h-12 md:h-16 w-auto transition-all duration-300 object-contain -ml-3"
                   onError={() => setImgError(true)}
                 />
               ) : (
