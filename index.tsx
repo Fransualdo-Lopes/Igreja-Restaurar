@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-// Recompiling application state...
-console.log("Main script starting...");
+// Recompiling application state - Checkpoint Saved
+console.log("Main script initialized...");
 
 const rootElement = document.getElementById('root');
 const loadingOverlay = document.getElementById('loading-overlay');
