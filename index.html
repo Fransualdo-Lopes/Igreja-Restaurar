@@ -35,6 +35,8 @@
         /* Dark mode body background fallback */
         html.dark body { background-color: #111827; }
         #root { min-height: 100vh; }
+        
+        /* Error Overlay Styles */
         #error-overlay {
             display: none;
             position: fixed;
@@ -49,19 +51,70 @@
             font-family: monospace;
             overflow: auto;
         }
-        .loading-spinner {
+
+        /* Loading Screen Styles */
+        #loading-overlay {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'DM Serif Display', serif;
-            color: #D64531;
-            font-size: 1.5rem;
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* Blur Effect Background */
+            background-color: rgba(249, 247, 242, 0.7); /* Cream with opacity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: .5; }
+
+        /* Dark Mode Support for Loader */
+        html.dark #loading-overlay {
+            background-color: rgba(17, 24, 39, 0.8); /* Dark gray with opacity */
+        }
+
+        .loader-icon {
+            width: 80px;
+            height: 80px;
+            /* Drop shadow for better contrast on blur */
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            animation: pulse-float 2.5s infinite ease-in-out;
+        }
+
+        .loader-text {
+            margin-top: 1.5rem;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            color: #D64531;
+            letter-spacing: 0.05em;
+            animation: fade-pulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse-float {
+            0% {
+                transform: scale(0.95) translateY(0);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.1) translateY(-10px);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.95) translateY(0);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes fade-pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Utility class to hide loader via JS */
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
     </style>
     <!-- Polyfill for process.env -->
@@ -93,10 +146,11 @@
     <script>
       window.addEventListener('error', function(event) {
         const overlay = document.getElementById('error-overlay');
-        const spinner = document.getElementById('loading-spinner');
+        const loader = document.getElementById('loading-overlay');
         if (overlay) {
           overlay.style.display = 'block';
-          if(spinner) spinner.style.display = 'none';
+          // Hide loader if error occurs so user sees error
+          if(loader) loader.style.display = 'none';
           
           const msg = document.createElement('div');
           msg.textContent = `Erro: ${event.message} (Linha ${event.lineno})`;
@@ -113,9 +167,13 @@
         <h2 style="color: #991b1b; font-weight: bold; margin-bottom: 1rem;">Ocorreu um erro:</h2>
     </div>
     
-    <div id="root">
-        <div id="loading-spinner" class="loading-spinner">Restaurar...</div>
+    <!-- Loading Screen (Sibing to Root) -->
+    <div id="loading-overlay">
+        <img src="/favicon.svg" alt="Carregando..." class="loader-icon" />
+        <div class="loader-text">Restaurar</div>
     </div>
+
+    <div id="root"></div>
     
     <script type="module" src="./index.tsx"></script>
   </body>
