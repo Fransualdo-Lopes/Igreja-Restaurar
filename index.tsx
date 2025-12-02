@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-// Recompiling application state - Checkpoint Saved
+// Recompiling application state - WhatsApp Footer Updated
 console.log("Main script initialized...");
 
 const rootElement = document.getElementById('root');

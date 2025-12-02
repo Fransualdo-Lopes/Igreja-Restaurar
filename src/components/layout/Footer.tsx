@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Instagram, Youtube, Facebook, Mail, Phone, MapPin } from 'lucide-react';
+import { Instagram, Youtube, Facebook, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const [imgError, setImgError] = useState(false);
+  const [whatsappNumber, setWhatsappNumber] = useState('');
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -17,6 +18,14 @@ export const Footer: React.FC = () => {
         behavior: "smooth"
       });
     }
+  };
+
+  const handleWhatsappSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Número da igreja (fictício para o template, substitua pelo real)
+    const churchNumber = "5511999999999"; 
+    const message = encodeURIComponent("Olá! Gostaria de receber os devocionais e novidades da Igreja Restaurar no meu WhatsApp.");
+    window.open(`https://wa.me/${churchNumber}?text=${message}`, '_blank');
   };
 
   const footerLinks = [
@@ -110,19 +119,27 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Newsletter / CTA */}
+          {/* Newsletter / CTA - Agora WhatsApp */}
           <div>
             <h4 className="text-lg font-serif mb-6">Fique por dentro</h4>
             <p className="text-gray-400 mb-4 text-sm">
-              Receba devocionais e novidades da igreja diretamente no seu e-mail.
+              Receba devocionais e novidades da igreja diretamente no seu WhatsApp.
             </p>
-            <form className="flex flex-col gap-3">
-              <input 
-                type="email" 
-                placeholder="Seu melhor e-mail" 
-                className="bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded focus:outline-none focus:border-[#D64531]"
-              />
-              <button className="bg-[#D64531] text-white px-4 py-3 rounded font-semibold hover:bg-[#b53a29] transition-colors uppercase tracking-wider text-sm">
+            <form onSubmit={handleWhatsappSubscribe} className="flex flex-col gap-3">
+              <div className="relative">
+                <input 
+                  type="tel" 
+                  value={whatsappNumber}
+                  onChange={(e) => setWhatsappNumber(e.target.value)}
+                  placeholder="(DDD) 99999-9999" 
+                  className="w-full bg-gray-800 border border-gray-700 text-white pl-4 pr-4 py-3 rounded focus:outline-none focus:border-[#25D366] transition-colors"
+                />
+              </div>
+              <button 
+                type="submit"
+                className="bg-[#25D366] text-white px-4 py-3 rounded font-semibold hover:bg-[#20bd5a] transition-colors uppercase tracking-wider text-sm flex items-center justify-center gap-2"
+              >
+                <MessageCircle size={18} />
                 Inscrever-se
               </button>
             </form>
