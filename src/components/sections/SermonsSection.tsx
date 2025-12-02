@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Play, Clock, Calendar, User, X, Youtube } from 'lucide-react';
 import { Sermon } from '../../types/index';
@@ -186,22 +187,10 @@ export const SermonsSection: React.FC = () => {
               Estamos preparando esta seção com muito carinho para você. Em breve, todas as mensagens estarão disponíveis aqui.
             </p>
 
-            <p className="text-gray-500 dark:text-gray-400 text-sm mb-6 transition-colors">
-              Enquanto isso, você pode acompanhar nossos cultos completos no YouTube.
-            </p>
-
             <div className="space-y-3">
-              <a 
-                href="https://www.youtube.com/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block w-full bg-[#D64531] text-white py-3 rounded-lg font-semibold hover:bg-[#b53a29] transition-colors uppercase text-sm tracking-wider"
-              >
-                Ir para o YouTube
-              </a>
               <button 
                 onClick={() => setShowConstructionModal(false)}
-                className="block w-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 py-3 rounded-lg font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors uppercase text-sm tracking-wider"
+                className="block w-full bg-[#D64531] text-white py-3 rounded-lg font-semibold hover:bg-[#b53a29] transition-colors uppercase text-sm tracking-wider"
               >
                 Voltar
               </button>
