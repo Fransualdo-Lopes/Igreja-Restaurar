@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Header } from './src/components/layout/Header';
 import { Hero } from './src/components/sections/Hero';
@@ -17,7 +18,7 @@ function App() {
       <Header onOpenGivingModal={(type) => setActiveGivingType(type)} />
       
       <main>
-        <Hero />
+        <Hero onOpenGivingModal={(type) => setActiveGivingType(type)} />
         <AboutSection />
         <MinistriesSection />
         

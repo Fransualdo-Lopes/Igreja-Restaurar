@@ -1,6 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, MapPin, ChevronLeft, ChevronRight, Calendar, Gift, Flame } from 'lucide-react';
+import { GivingType } from '../ui/GivingModal';
+
+interface HeroProps {
+  onOpenGivingModal: (type: GivingType) => void;
+}
 
 interface Slide {
   id: number;
@@ -14,7 +19,7 @@ interface Slide {
   overlayColor: string; // Custom overlay opacity/color per slide
 }
 
-export const Hero: React.FC = () => {
+export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const handlePlanVisit = () => {
@@ -96,7 +101,7 @@ export const Hero: React.FC = () => {
   const handlePrimaryAction = (slideIndex: number) => {
     switch (slideIndex) {
       case 0: handlePlanVisit(); break;
-      case 1: scrollToSection('inicio'); alert('Entre em contato pelo WhatsApp no rodapé para doar!'); break; // Ação para Natal
+      case 1: onOpenGivingModal('oferta'); break; // Opens the donation modal
       case 2: 
         const chatBtn = document.querySelector('[aria-label="Abrir chat"]') as HTMLButtonElement;
         if(chatBtn) chatBtn.click(); // Tenta abrir o chat
