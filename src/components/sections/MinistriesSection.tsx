@@ -59,7 +59,7 @@ export const MinistriesSection: React.FC = () => {
       leader: 'Irmã Rosa',
       schedule: 'Terças às 19h e Domingos às 09h',
       location: 'Sala de Oração',
-      imageUrl: 'https://images.unsplash.com/photo-1543615462-5264b8577000?q=80&w=2670&auto=format&fit=crop',
+      imageUrl: 'https://images.unsplash.com/photo-1507567794358-132d75f2803b?q=80&w=2670&auto=format&fit=crop',
       icon: <Flame size={24} />
     }
   ];
