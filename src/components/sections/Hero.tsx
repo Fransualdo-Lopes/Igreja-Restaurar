@@ -1,6 +1,5 @@
-
-import React, { useState, useEffect } from 'react';
-import { ArrowRight, MapPin, ChevronLeft, ChevronRight, Calendar, Gift, Flame } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { ArrowRight, MapPin, ChevronLeft, ChevronRight, Gift, Flame, Pause, Play } from 'lucide-react';
 import { GivingType } from '../ui/GivingModal';
 
 interface HeroProps {
@@ -21,20 +20,13 @@ interface Slide {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlay, setIsAutoPlay] = useState(true); // Controle manual do usuário
+  const [isInteractionPaused, setIsInteractionPaused] = useState(false); // Pausa temporária de interação
+  const [isHovered, setIsHovered] = useState(false); // Pausa por hover
 
-  const handlePlanVisit = () => {
-    window.open('https://maps.app.goo.gl/sMLBfgzwL28irDcJ8', '_blank');
-  };
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerOffset;
-      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-    }
-  };
+  // Refs para gerenciar timers e evitar re-renders desnecessários ou loops
+  const autoPlayTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const interactionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const slides: Slide[] = [
     {
@@ -81,30 +73,80 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
     }
   ];
 
-  // Auto-play logic (4 seconds)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4000);
+  const handlePlanVisit = () => {
+    window.open('https://maps.app.goo.gl/sMLBfgzwL28irDcJ8', '_blank');
+  };
 
-    return () => clearInterval(timer);
-  }, []);
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+    }
+  };
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
+  }, [slides.length]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  }, [slides.length]);
+
+  // Função para gerenciar interação do usuário (clique em setas ou dots)
+  const handleUserInteraction = (action: () => void) => {
+    action(); // Executa a ação (mudar slide)
+    
+    // Se o autoplay manual estiver ligado, ativamos a "pausa inteligente"
+    if (isAutoPlay) {
+      setIsInteractionPaused(true);
+      
+      // Limpa timer anterior se houver
+      if (interactionTimerRef.current) clearTimeout(interactionTimerRef.current);
+      
+      // Reinicia o autoplay após 10 segundos de inatividade
+      interactionTimerRef.current = setTimeout(() => {
+        setIsInteractionPaused(false);
+      }, 10000);
+    }
   };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
+  // Efeito principal do AutoPlay
+  useEffect(() => {
+    // Limpa intervalo existente
+    if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
+
+    // Condições para o AutoPlay rodar:
+    // 1. O usuário não pausou manualmente (isAutoPlay true)
+    // 2. Não está em pausa temporária de interação (isInteractionPaused false)
+    // 3. O mouse não está em cima (isHovered false)
+    if (isAutoPlay && !isInteractionPaused && !isHovered) {
+      autoPlayTimerRef.current = setInterval(() => {
+        nextSlide();
+      }, 5000); // 5 segundos entre slides
+    }
+
+    return () => {
+      if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
+    };
+  }, [isAutoPlay, isInteractionPaused, isHovered, nextSlide]);
+
+  // Limpar timer de interação ao desmontar
+  useEffect(() => {
+    return () => {
+      if (interactionTimerRef.current) clearTimeout(interactionTimerRef.current);
+    };
+  }, []);
 
   const handlePrimaryAction = (slideIndex: number) => {
     switch (slideIndex) {
       case 0: handlePlanVisit(); break;
-      case 1: onOpenGivingModal('oferta'); break; // Opens the donation modal
+      case 1: onOpenGivingModal('oferta'); break;
       case 2: 
         const chatBtn = document.querySelector('[aria-label="Abrir chat"]') as HTMLButtonElement;
-        if(chatBtn) chatBtn.click(); // Tenta abrir o chat
+        if(chatBtn) chatBtn.click();
         break;
       case 3: handlePlanVisit(); break;
       default: break;
@@ -117,7 +159,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
   };
 
   return (
-    <div id="inicio" className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-black">
+    <div 
+      id="inicio" 
+      className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-black"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       
       {/* Slides */}
       {slides.map((slide, index) => (
@@ -186,43 +233,61 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
       {/* Navigation Controls (Arrows) */}
       <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 md:px-8 z-30 pointer-events-none">
         <button 
-          onClick={prevSlide}
-          className="pointer-events-auto p-3 rounded-full bg-black/20 hover:bg-black/50 text-white/50 hover:text-white backdrop-blur-sm transition-all border border-white/10 hover:border-white/30"
+          onClick={() => handleUserInteraction(prevSlide)}
+          className="pointer-events-auto p-3 rounded-full bg-black/20 hover:bg-black/50 text-white/50 hover:text-white backdrop-blur-sm transition-all border border-white/10 hover:border-white/30 group"
+          aria-label="Slide anterior"
         >
-          <ChevronLeft size={32} />
+          <ChevronLeft size={32} className="group-hover:-translate-x-0.5 transition-transform" />
         </button>
         <button 
-          onClick={nextSlide}
-          className="pointer-events-auto p-3 rounded-full bg-black/20 hover:bg-black/50 text-white/50 hover:text-white backdrop-blur-sm transition-all border border-white/10 hover:border-white/30"
+          onClick={() => handleUserInteraction(nextSlide)}
+          className="pointer-events-auto p-3 rounded-full bg-black/20 hover:bg-black/50 text-white/50 hover:text-white backdrop-blur-sm transition-all border border-white/10 hover:border-white/30 group"
+          aria-label="Próximo slide"
         >
-          <ChevronRight size={32} />
+          <ChevronRight size={32} className="group-hover:translate-x-0.5 transition-transform" />
         </button>
       </div>
 
-      {/* Navigation Indicators (Dots) */}
-      <div className="absolute bottom-24 md:bottom-20 left-1/2 -translate-x-1/2 z-30 flex gap-3">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide 
-                ? 'bg-[#D64531] w-8' 
-                : 'bg-white/50 hover:bg-white'
-            }`}
-            aria-label={`Ir para slide ${index + 1}`}
-          />
-        ))}
+      {/* Navigation Indicators (Dots) and Play/Pause */}
+      <div className="absolute bottom-20 md:bottom-16 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4 bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
+        
+        {/* Play/Pause Button */}
+        <button
+          onClick={() => setIsAutoPlay(!isAutoPlay)}
+          className="text-white/70 hover:text-white transition-colors p-1"
+          title={isAutoPlay ? "Pausar slide automático" : "Iniciar slide automático"}
+        >
+          {isAutoPlay ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+        </button>
+
+        {/* Separator */}
+        <div className="w-px h-3 bg-white/20"></div>
+
+        {/* Dots */}
+        <div className="flex gap-2">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handleUserInteraction(() => setCurrentSlide(index))}
+              className={`rounded-full transition-all duration-500 ease-out ${
+                index === currentSlide 
+                  ? 'bg-[#D64531] w-8 h-2' 
+                  : 'bg-white/50 hover:bg-white w-2 h-2'
+              }`}
+              aria-label={`Ir para slide ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Footer Address (Static Overlay) */}
       <div 
         onClick={handlePlanVisit}
-        className="absolute bottom-6 md:bottom-8 z-30 flex justify-center items-center text-gray-200 text-sm gap-2 cursor-pointer hover:text-white transition-colors group font-medium drop-shadow-md bg-black/30 px-6 py-2 rounded-full backdrop-blur-sm border border-white/10 hover:border-white/30"
+        className="absolute bottom-6 md:bottom-4 z-30 flex justify-center items-center text-gray-200 text-xs sm:text-sm gap-2 cursor-pointer hover:text-white transition-colors group font-medium drop-shadow-md bg-black/30 px-5 py-2 rounded-full backdrop-blur-sm border border-white/10 hover:border-white/30"
         title="Abrir no Google Maps"
       >
-        <MapPin size={16} className="text-[#D64531] group-hover:scale-110 transition-transform" />
-        <p>Rua Barão de Serra Azul, 403 - Jaderlândia, Paragominas - PA</p>
+        <MapPin size={14} className="text-[#D64531] group-hover:scale-110 transition-transform" />
+        <p className="max-w-[280px] sm:max-w-none truncate">Rua Barão de Serra Azul, 403 - Jaderlândia</p>
       </div>
     </div>
   );
