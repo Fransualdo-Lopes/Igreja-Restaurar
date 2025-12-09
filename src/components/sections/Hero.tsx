@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, MapPin, ChevronLeft, ChevronRight, Gift, Flame, Pause, Play } from 'lucide-react';
 import { GivingType } from '../ui/GivingModal';
@@ -23,6 +24,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
   const [isAutoPlay, setIsAutoPlay] = useState(true); // Controle manual do usuário
   const [isInteractionPaused, setIsInteractionPaused] = useState(false); // Pausa temporária de interação
   const [isHovered, setIsHovered] = useState(false); // Pausa por hover
+  const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({}); // Rastreamento de erro de imagens
 
   // Refs para gerenciar timers e evitar re-renders desnecessários ou loops
   const autoPlayTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -175,12 +177,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
           }`}
         >
           {/* Background Image */}
-          <div className="absolute inset-0">
-            <img 
-              src={slide.image}
-              alt="Slide Background" 
-              className="w-full h-full object-cover"
-            />
+          <div className="absolute inset-0 bg-black">
+            {!imgErrors[slide.id] && (
+              <img 
+                src={slide.image}
+                alt="Slide Background" 
+                className="w-full h-full object-cover"
+                onError={() => setImgErrors(prev => ({...prev, [slide.id]: true}))}
+              />
+            )}
             {/* Dynamic Overlay */}
             <div className={`absolute inset-0 bg-gradient-to-t ${slide.overlayColor}`}></div>
           </div>

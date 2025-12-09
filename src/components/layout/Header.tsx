@@ -46,6 +46,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Reset image error when logo source changes (theme or scroll change)
+  // This allows the app to try loading the other logo if one failed
+  const showDarkLogo = isScrolled && theme !== 'dark';
+  useEffect(() => {
+    setImgError(false);
+  }, [showDarkLogo]);
+
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const element = document.querySelector(href);
@@ -73,9 +80,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
   // Logos reais da pasta public
   const logoDark = "/1.svg"; 
   const logoLight = "/2.svg";
-
-  // Determine which logo to show based on scroll and theme
-  const showDarkLogo = isScrolled && theme !== 'dark';
 
   return (
     <header 
