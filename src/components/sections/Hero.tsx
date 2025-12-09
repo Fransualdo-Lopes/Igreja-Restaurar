@@ -200,7 +200,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
       </div>
 
       {/* Navigation Indicators (Dots) */}
-      <div className="absolute bottom-32 md:bottom-24 left-1/2 -translate-x-1/2 z-30 flex gap-3">
+      <div className="absolute bottom-24 md:bottom-20 left-1/2 -translate-x-1/2 z-30 flex gap-3">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -218,7 +218,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
       {/* Footer Address (Static Overlay) */}
       <div 
         onClick={handlePlanVisit}
-        className="absolute bottom-8 z-30 flex justify-center items-center text-gray-200 text-sm gap-2 cursor-pointer hover:text-white transition-colors group font-medium drop-shadow-md bg-black/30 px-6 py-2 rounded-full backdrop-blur-sm border border-white/10 hover:border-white/30"
+        className="absolute bottom-6 md:bottom-8 z-30 flex justify-center items-center text-gray-200 text-sm gap-2 cursor-pointer hover:text-white transition-colors group font-medium drop-shadow-md bg-black/30 px-6 py-2 rounded-full backdrop-blur-sm border border-white/10 hover:border-white/30"
         title="Abrir no Google Maps"
       >
         <MapPin size={16} className="text-[#D64531] group-hover:scale-110 transition-transform" />
