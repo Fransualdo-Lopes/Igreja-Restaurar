@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { GivingType } from '../ui/GivingModal';
@@ -13,17 +14,16 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    // Check local storage or system preference on mount
+    // Check local storage on mount
+    // Default is light. Only switch to dark if explicitly saved in localStorage.
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       setTheme(savedTheme);
       if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark');
       }
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setTheme('dark');
-      document.documentElement.classList.add('dark');
     }
+    // System preference check removed to force Light Mode as default
   }, []);
 
   const toggleTheme = () => {
