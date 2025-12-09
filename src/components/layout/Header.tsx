@@ -80,18 +80,20 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
   return (
     <header 
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white dark:bg-gray-900 shadow-md py-2' : 'bg-transparent py-6'
+        isScrolled 
+          ? 'bg-white dark:bg-gray-900 shadow-md h-20' 
+          : 'bg-transparent h-24'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex justify-between items-center h-full">
           
           {/* Logo Section */}
-          <div className="flex-shrink-0 flex items-center">
+          <div className="flex-shrink-0 flex items-center h-full">
             <a 
               href="#inicio" 
               onClick={(e) => scrollToSection(e, '#inicio')}
-              className="block group"
+              className="flex items-center group h-full"
             >
               {!imgError ? (
                 <img 
@@ -102,62 +104,65 @@ export const Header: React.FC<HeaderProps> = ({ onOpenGivingModal }) => {
                 />
               ) : (
                 // Fallback de Texto caso a imagem não carregue
-                <div className="flex items-center gap-2">
-                  <span className={`text-2xl font-serif font-bold tracking-tight ${isScrolled ? 'text-[#D64531] dark:text-[#D64531]' : 'text-white'}`}>
-                    Restaurar
-                  </span>
-                </div>
+                <span className={`text-2xl font-serif font-bold tracking-tight ${isScrolled ? 'text-[#D64531] dark:text-[#D64531]' : 'text-white'}`}>
+                  Restaurar
+                </span>
               )}
             </a>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8 items-center">
+          <nav className="hidden md:flex items-center gap-8 h-full">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
-                className={`text-sm font-medium uppercase tracking-wider transition-colors hover:text-[#D64531] ${
+                className={`text-sm font-medium uppercase tracking-wider transition-colors hover:text-[#D64531] relative group py-2 ${
                   isScrolled ? 'text-gray-800 dark:text-gray-200' : 'text-white'
                 }`}
               >
                 {item.label}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#D64531] transition-all duration-300 group-hover:w-full"></span>
               </a>
             ))}
-            
-            <div className="flex items-center space-x-4">
-              {/* Theme Toggle Button */}
-              <button
-                onClick={toggleTheme}
-                className={`p-2 rounded-full transition-colors ${
-                  isScrolled 
-                    ? 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800' 
-                    : 'text-white/80 hover:text-white hover:bg-white/10'
-                }`}
-                title={theme === 'dark' ? "Modo Claro" : "Modo Escuro"}
-              >
-                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
-
-              <button 
-                onClick={() => onOpenGivingModal('dizimo')}
-                className={`px-5 py-2 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 shadow-md hover:scale-105 hover:shadow-lg ${
-                  isScrolled 
-                    ? 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700' 
-                    : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
-                }`}
-              >
-                Dízimos
-              </button>
-              <button 
-                onClick={() => onOpenGivingModal('oferta')}
-                className="bg-[#D64531] text-white px-5 py-2 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 hover:bg-[#b53a29] hover:scale-105 hover:shadow-xl shadow-md"
-              >
-                Ofertar
-              </button>
-            </div>
           </nav>
+            
+          {/* Action Buttons Group */}
+          <div className="hidden md:flex items-center gap-4 h-full">
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors ${
+                isScrolled 
+                  ? 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800' 
+                  : 'text-white/80 hover:text-white hover:bg-white/10'
+              }`}
+              title={theme === 'dark' ? "Modo Claro" : "Modo Escuro"}
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+
+            {/* Separator Line */}
+            <div className={`h-6 w-px ${isScrolled ? 'bg-gray-300 dark:bg-gray-700' : 'bg-white/30'}`}></div>
+
+            <button 
+              onClick={() => onOpenGivingModal('dizimo')}
+              className={`h-10 px-6 rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 shadow-sm hover:shadow-md flex items-center ${
+                isScrolled 
+                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700' 
+                  : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+              }`}
+            >
+              Dízimos
+            </button>
+            <button 
+              onClick={() => onOpenGivingModal('oferta')}
+              className="h-10 px-6 bg-[#D64531] text-white rounded-full font-semibold text-sm uppercase tracking-wide transition-all duration-300 hover:bg-[#b53a29] hover:scale-105 hover:shadow-xl shadow-md flex items-center border border-transparent"
+            >
+              Ofertar
+            </button>
+          </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-4">
