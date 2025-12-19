@@ -34,7 +34,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
     {
       id: 0,
       badge: "Bem-vindo à Restaurar",
-      title: <>Um lugar para <br /><span className="italic text-[#D64531]">recomeçar</span></>,
+      title: <>Um Lugar Para <br /><span className="italic text-[#D64531]">Recomeçar</span></>,
       subtitle: "Somos uma comunidade apaixonada por Jesus e comprometida em restaurar vidas através do amor, da fé e do serviço.",
       image: "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=2673&auto=format&fit=crop",
       primaryButtonText: "Planeje sua visita",
