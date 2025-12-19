@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Sparkles } from 'lucide-react';
 import { sendMessageToGemini } from '../../services/geminiService';
@@ -43,13 +44,13 @@ export const ChatAssistant: React.FC = () => {
 
   return (
     <>
-      {/* Trigger Button */}
+      {/* Trigger Button - Reduced size on mobile */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-40 bg-[#D64531] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center ${isOpen ? 'hidden' : 'flex'}`}
+        className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-40 bg-[#D64531] text-white p-3 md:p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center ${isOpen ? 'hidden' : 'flex'}`}
         aria-label="Abrir chat"
       >
-        <MessageSquare size={24} />
+        <MessageSquare size={20} className="md:w-6 md:h-6" />
       </button>
 
       {/* Chat Window */}
