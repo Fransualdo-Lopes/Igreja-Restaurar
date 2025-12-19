@@ -8,13 +8,13 @@ export const AboutSection: React.FC = () => {
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#D64531] opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div className="relative">
                     <div className="aspect-[4/5] w-full max-w-md mx-auto bg-gray-800 relative z-10 shadow-2xl">
                          <img 
-                            src="https://images.unsplash.com/photo-1510590337019-5ef2d39aa786?q=80&w=2670&auto=format&fit=crop" 
-                            alt="Pastor pregando" 
+                            src="https://images.unsplash.com/photo-1515162305285-0293e4767cc2?q=80&w=2670&auto=format&fit=crop" 
+                            alt="Pastor pregando com a Bíblia" 
                             className="w-full h-full object-cover opacity-90"
                         />
                     </div>

@@ -65,7 +65,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
     {
       id: 3,
       badge: "Domingo | 19h00",
-      title: <>Culto de <br />da <span className="text-[#D64531] font-serif italic">Celebração</span></>,
+      title: <>Culto de <br /><span className="text-[#D64531] font-serif italic">Celebração</span></>,
       subtitle: "O melhor dia da sua semana começa na casa do Pai. Venha receber uma palavra transformadora.",
       image: "https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=2670&auto=format&fit=crop", 
       primaryButtonText: "Localização",
