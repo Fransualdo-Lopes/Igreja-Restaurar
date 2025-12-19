@@ -54,8 +54,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
     },
     {
       id: 2,
-      badge: "Quarta-feira | 20h00",
-      title: <>Culto de <br /><span className="text-[#D64531] font-serif italic">Oração</span></>,
+      badge: "Quarta-feira | 19h30",
+      title: <>Culto da <br /><span className="text-[#D64531] font-serif italic">Palavra e Adoração</span></>,
       subtitle: '"Buscai ao Senhor enquanto se pode achar, invocai-o enquanto está perto." (Isaías 55:6).',
       image: "https://images.unsplash.com/photo-1437603568260-1950d3ca6eab?q=80&w=2670&auto=format&fit=crop", 
       primaryButtonText: "Enviar Pedido",
@@ -65,7 +65,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenGivingModal }) => {
     {
       id: 3,
       badge: "Domingo | 19h00",
-      title: <>Grande Culto <br />da <span className="text-[#D64531] font-serif italic">Família</span></>,
+      title: <>Culto de <br />da <span className="text-[#D64531] font-serif italic">Celebração</span></>,
       subtitle: "O melhor dia da sua semana começa na casa do Pai. Venha receber uma palavra transformadora.",
       image: "https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=2670&auto=format&fit=crop", 
       primaryButtonText: "Localização",
